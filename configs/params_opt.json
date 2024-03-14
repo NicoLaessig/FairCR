@@ -1,0 +1,588 @@
+{
+    "DisparateImpactRemover": {
+        "german": {
+            "repair": 1
+        },
+        "communities": {
+            "repair": 1
+        },
+        "compas": {
+            "repair": 1
+        },
+        "credit_card_clients": {
+            "repair": 1
+        },
+        "adult_data_set": {
+            "repair": 1
+        },
+        "acs2017_census": {
+            "repair": 1
+        },
+        "implicit30": {
+            "repair": 1
+        },
+        "social30": {
+            "repair": 1
+        }
+    },
+    "LFR": {
+        "german": {
+            "Ax": 0.01,
+            "Ay": 1,
+            "Az": 50,
+            "k": 5
+        },
+        "communities": {
+            "Ax": 0.01,
+            "Ay": 1,
+            "Az": 50,
+            "k": 5
+        },
+        "compas": {
+            "Ax": 0.01,
+            "Ay": 1,
+            "Az": 50,
+            "k": 5
+        },
+        "credit_card_clients": {
+            "Ax": 0.01,
+            "Ay": 1,
+            "Az": 50,
+            "k": 5
+        },
+        "adult_data_set": {
+            "Ax": 0.01,
+            "Ay": 1,
+            "Az": 50,
+            "k": 5
+        },
+        "acs2017_census": {
+            "Ax": 0.01,
+            "Ay": 1,
+            "Az": 50,
+            "k": 5
+        },
+        "implicit30": {
+            "Ax": 0.01,
+            "Ay": 1,
+            "Az": 50,
+            "k": 5
+        },
+        "social30": {
+            "Ax": 0.01,
+            "Ay": 1,
+            "Az": 50,
+            "k": 5
+        }
+    },
+    "Reweighing": {
+        "german": {},
+        "communities": {},
+        "compas": {},
+        "credit_card_clients": {},
+        "adult_data_set": {},
+        "acs2017_census": {},
+        "implicit30": {},
+        "social30": {}
+    },
+    "AdversarialDebiasing": {
+        "german": {
+            "adversary_loss": 0.1,
+            "debias": "True"
+        },
+        "communities": {
+            "adversary_loss": 0.1,
+            "debias": "True"
+        },
+        "compas": {
+            "adversary_loss": 0.1,
+            "debias": "True"
+        },
+        "credit_card_clients": {
+            "adversary_loss": 0.1,
+            "debias": "True"
+        },
+        "adult_data_set": {
+            "adversary_loss": 0.1,
+            "debias": "True"
+        },
+        "acs2017_census": {
+            "adversary_loss": 0.1,
+            "debias": "True"
+        },
+        "implicit30": {
+            "adversary_loss": 0.1,
+            "debias": "True"
+        },
+        "social30": {
+            "adversary_loss": 0.1,
+            "debias": "True"
+        }
+    },
+    "GerryFairClassifier": {
+        "german": {
+            "gamma": 0.01
+        },
+        "communities": {
+            "gamma": 0.01
+        },
+        "compas": {
+            "gamma": 0.01
+        },
+        "credit_card_clients": {
+            "gamma": 0.01
+        },
+        "adult_data_set": {
+            "gamma": 0.01
+        },
+        "acs2017_census": {
+            "gamma": 0.01
+        },
+        "implicit30": {
+            "gamma": 0.01
+        },
+        "social30": {
+            "gamma": 0.01
+        }
+    },
+    "MetaFairClassifier": {
+        "german": {
+            "tau": 0.8
+        },
+        "communities": {
+            "tau": 0.8
+        },
+        "compas": {
+            "tau": 0.8
+        },
+        "credit_card_clients": {
+            "tau": 0.8
+        },
+        "adult_data_set": {
+            "tau": 0.8
+        },
+        "acs2017_census": {
+            "tau": 0.8
+        },
+        "implicit30": {
+            "tau": 0.8
+        },
+        "social30": {
+            "tau": 0.8
+        }
+    },
+    "PrejudiceRemover": {
+        "german": {
+            "eta": 1
+        },
+        "communities": {
+            "eta": 1
+        },
+        "compas": {
+            "eta": 1
+        },
+        "credit_card_clients": {
+            "eta": 1
+        },
+        "adult_data_set": {
+            "eta": 1
+        },
+        "acs2017_census": {
+            "eta": 1
+        },
+        "implicit30": {
+            "eta": 1
+        },
+        "social30": {
+            "eta": 1
+        }
+    },
+    "ExponentiatedGradientReduction": {
+        "german": {
+            "eps": 0.01,
+            "learning_rate": 2
+        },
+        "communities": {
+            "eps": 0.01,
+            "learning_rate": 2
+        },
+        "compas": {
+            "eps": 0.01,
+            "learning_rate": 2
+        },
+        "credit_card_clients": {
+            "eps": 0.01,
+            "learning_rate": 2
+        },
+        "adult_data_set": {
+            "eps": 0.01,
+            "learning_rate": 2
+        },
+        "acs2017_census": {
+            "eps": 0.01,
+            "learning_rate": 2
+        },
+        "implicit30": {
+            "eps": 0.01,
+            "learning_rate": 2
+        },
+        "social30": {
+            "eps": 0.01,
+            "learning_rate": 2
+        }
+    },
+    "GridSearchReduction": {
+        "german": {
+            "lam": 0.5
+        },
+        "communities": {
+            "lam": 0.5
+        },
+        "compas": {
+            "lam": 0.5
+        },
+        "credit_card_clients": {
+            "lam": 0.5
+        },
+        "adult_data_set": {
+            "lam": 0.5
+        },
+        "acs2017_census": {
+            "lam": 0.5
+        },
+        "implicit30": {
+            "lam": 0.5
+        },
+        "social30": {
+            "lam": 0.5
+        }
+    },
+    "EqOddsPostprocessing": {
+        "german": {},
+        "communities": {},
+        "compas": {},
+        "credit_card_clients": {},
+        "adult_data_set": {},
+        "acs2017_census": {},
+        "implicit30": {},
+        "social30": {}
+    },
+    "CalibratedEqOddsPostprocessing": {
+        "german": {},
+        "communities": {},
+        "compas": {},
+        "credit_card_clients": {},
+        "adult_data_set": {},
+        "acs2017_census": {},
+        "implicit30": {},
+        "social30": {}
+    },
+    "RejectOptionClassification": {
+        "german": {},
+        "communities": {},
+        "compas": {},
+        "credit_card_clients": {},
+        "adult_data_set": {},
+        "acs2017_census": {},
+        "implicit30": {},
+        "social30": {}
+    },
+    "Fair-SMOTE": {
+        "german": {},
+        "communities": {},
+        "compas": {},
+        "credit_card_clients": {},
+        "adult_data_set": {},
+        "acs2017_census": {},
+        "implicit30": {},
+        "social30": {}
+    },
+    "JiangNachum": {
+        "german": {
+            "estimators": 100,
+            "learning_rate": 1
+        },
+        "communities": {
+            "estimators": 100,
+            "learning_rate": 1
+        },
+        "compas": {
+            "estimators": 100,
+            "learning_rate": 1
+        },
+        "credit_card_clients": {
+            "estimators": 100,
+            "learning_rate": 1
+        },
+        "adult_data_set": {
+            "estimators": 100,
+            "learning_rate": 1
+        },
+        "acs2017_census": {
+            "estimators": 100,
+            "learning_rate": 1
+        },
+        "implicit30": {
+            "estimators": 100,
+            "learning_rate": 1
+        },
+        "social30": {
+            "estimators": 100,
+            "learning_rate": 1
+        }
+    },
+    "FairGeneralizedLinearModel": {
+        "german": {
+            "lam": 0.001,
+            "family": "bernoulli",
+            "discretization": "equal_count"
+        },
+        "communities": {
+            "lam": 0.001,
+            "family": "bernoulli",
+            "discretization": "equal_count"
+        },
+        "compas": {
+            "lam": 0.001,
+            "family": "bernoulli",
+            "discretization": "equal_count"
+        },
+        "credit_card_clients": {
+            "lam": 0.001,
+            "family": "bernoulli",
+            "discretization": "equal_count"
+        },
+        "adult_data_set": {
+            "lam": 0.001,
+            "family": "bernoulli",
+            "discretization": "equal_count"
+        },
+        "acs2017_census": {
+            "lam": 0.001,
+            "family": "bernoulli",
+            "discretization": "equal_count"
+        },
+        "implicit30": {
+            "lam": 0.001,
+            "family": "bernoulli",
+            "discretization": "equal_count"
+        },
+        "social30": {
+            "lam": 0.001,
+            "family": "bernoulli",
+            "discretization": "equal_count"
+        }
+    },
+    "FairnessConstraintModel": {
+        "german": {
+            "c": 0.001,
+            "tau": 0.5,
+            "mu": 1.2,
+            "eps": 0.0001
+        },
+        "communities": {
+            "c": 0.001,
+            "tau": 0.5,
+            "mu": 1.2,
+            "eps": 0.0001
+        },
+        "compas": {
+            "c": 0.001,
+            "tau": 0.5,
+            "mu": 1.2,
+            "eps": 0.0001
+        },
+        "credit_card_clients": {
+            "c": 0.001,
+            "tau": 0.5,
+            "mu": 1.2,
+            "eps": 0.0001
+        },
+        "adult_data_set": {
+            "c": 0.001,
+            "tau": 0.5,
+            "mu": 1.2,
+            "eps": 0.0001
+        },
+        "acs2017_census": {
+            "c": 0.001,
+            "tau": 0.5,
+            "mu": 1.2,
+            "eps": 0.0001
+        },
+        "implicit30": {
+            "c": 0.001,
+            "tau": 0.5,
+            "mu": 1.2,
+            "eps": 0.0001
+        },
+        "social30": {
+            "c": 0.001,
+            "tau": 0.5,
+            "mu": 1.2,
+            "eps": 0.0001
+        }
+    },
+    "DisparateMistreatmentModel": {
+        "german": {
+            "c": 0.001,
+            "tau": 0.5,
+            "mu": 1.2,
+            "eps": 0.0001
+        },
+        "communities": {
+            "c": 0.001,
+            "tau": 0.5,
+            "mu": 1.2,
+            "eps": 0.0001
+        },
+        "compas": {
+            "c": 0.001,
+            "tau": 0.5,
+            "mu": 1.2,
+            "eps": 0.0001
+        },
+        "credit_card_clients": {
+            "c": 0.001,
+            "tau": 0.5,
+            "mu": 1.2,
+            "eps": 0.0001
+        },
+        "adult_data_set": {
+            "c": 0.001,
+            "tau": 0.5,
+            "mu": 1.2,
+            "eps": 0.0001
+        },
+        "acs2017_census": {
+            "c": 0.001,
+            "tau": 0.5,
+            "mu": 1.2,
+            "eps": 0.0001
+        },
+        "implicit30": {
+            "c": 0.001,
+            "tau": 0.5,
+            "mu": 1.2,
+            "eps": 0.0001
+        },
+        "social30": {
+            "c": 0.001,
+            "tau": 0.5,
+            "mu": 1.2,
+            "eps": 0.0001
+        }
+    },
+    "FAGTB": {
+        "german": {
+            "estimators": 300,
+            "learning_rate": 0.01,
+            "lam": 0.15
+        },
+        "communities": {
+            "estimators": 300,
+            "learning_rate": 0.01,
+            "lam": 0.15
+        },
+        "compas": {
+            "estimators": 300,
+            "learning_rate": 0.01,
+            "lam": 0.15
+        },
+        "credit_card_clients": {
+            "estimators": 300,
+            "learning_rate": 0.01,
+            "lam": 0.15
+        },
+        "adult_data_set": {
+            "estimators": 300,
+            "learning_rate": 0.01,
+            "lam": 0.15
+        },
+        "acs2017_census": {
+            "estimators": 300,
+            "learning_rate": 0.01,
+            "lam": 0.15
+        },
+        "implicit30": {
+            "estimators": 300,
+            "learning_rate": 0.01,
+            "lam": 0.15
+        },
+        "social30": {
+            "estimators": 300,
+            "learning_rate": 0.01,
+            "lam": 0.15
+        }
+    },
+    "GradualCompatibility": {
+        "german": {
+            "reg": 0,
+            "reg_val": 1,
+            "weight_init": "None",
+            "lam": 0.0001
+        },
+        "communities": {
+            "reg": 0,
+            "reg_val": 1,
+            "weight_init": "None",
+            "lam": 0.0001
+        },
+        "compas": {
+            "reg": 0,
+            "reg_val": 1,
+            "weight_init": "None",
+            "lam": 0.0001
+        },
+        "credit_card_clients": {
+            "reg": 0,
+            "reg_val": 1,
+            "weight_init": "None",
+            "lam": 0.0001
+        },
+        "adult_data_set": {
+            "reg": 0,
+            "reg_val": 1,
+            "weight_init": "None",
+            "lam": 0.0001
+        },
+        "acs2017_census": {
+            "reg": 0,
+            "reg_val": 1,
+            "weight_init": "None",
+            "lam": 0.0001
+        },
+        "implicit30": {
+            "reg": 0,
+            "reg_val": 1,
+            "weight_init": "None",
+            "lam": 0.0001
+        },
+        "social30": {
+            "reg": 0,
+            "reg_val": 1,
+            "weight_init": "None",
+            "lam": 0.0001
+        }
+    },
+    "FaX": {
+        "german": {},
+        "communities": {},
+        "compas": {},
+        "credit_card_clients": {},
+        "adult_data_set": {},
+        "acs2017_census": {},
+        "implicit30": {},
+        "social30": {}
+    },
+    "LTDD": {
+        "german": {},
+        "communities": {},
+        "compas": {},
+        "credit_card_clients": {},
+        "adult_data_set": {},
+        "acs2017_census": {},
+        "implicit30": {},
+        "social30": {}
+    }
+}
