@@ -22,7 +22,7 @@ This repository contains the code of our ICDE 2024 demo paper.
 ## Add Fair Classifier
 
 - The requirements for adding a new fair classifier:<br /> 
-- - Classifier has to have a fit() function, where the input is X_train and y_train (in DataFrame format), and a predict() function, where X_predict is the input.<br /> 
+  - Classifier has to have a fit() function, where the input is X_train and y_train (in DataFrame format), and a predict() function, where X_predict is the input.<br /> 
   - All other important parameters are given via Class initialization. An additional required parameter is df_dict, which contains important information about the input dataset.<br />
 - Add the default parameter values and values for the grid search parameter optimization to `configs/params.json`<br />
 - Add the respective new Class to the `algorithm/__init__.py`.<br />
