@@ -1,0 +1,29 @@
+/* styles.css */
+.table-responsive {
+  max-height: 100%;
+}
+.table table-bordered {
+  overflow-y: scroll;
+}
+
+.sticky-header th {position: sticky;
+  top: 0;
+  background-color: #f0f0f0; /* Hintergrundfarbe für den fixierten Header */
+  z-index: 1; /* Hält den Header über den anderen Inhalten */
+}
+
+.text-center {
+  text-align: center;
+  margin-top: 5%;
+}
+
+.text-center p {
+  /* Stile für den Text innerhalb des zentrierten Containers */
+  font-size: 16px; /* Beispielstil für die Schriftgröße */
+  color: #333; /* Beispielstil für die Textfarbe */
+  /* Weitere Stile nach Bedarf hinzufügen */
+}
+
+
+
+

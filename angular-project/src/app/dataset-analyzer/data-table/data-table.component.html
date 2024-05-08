@@ -1,0 +1,35 @@
+<div class="table-responsive">
+  <table class="table table-bordered" *ngIf="valuesPoint1.length > 0">
+    <thead>
+    <tr class="sticky-header">
+      <th>
+        attribute
+      </th>
+      <th class="column-header">
+        <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off"
+               (click)="activateButton(1)">
+        <label class="btn btn-secondary" for="option1"> Select first datapoint </label>
+      <th class="column-header">
+        <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off"
+               (click)="activateButton(2)">
+        <label class="btn btn-secondary" for="option2"> Select second datapoint </label>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let attribute of attributes; let i = index">
+      <td class="table-cell"> {{ attribute }} </td>
+      <td class="table-cell"> {{ valuesPoint1[i] }} </td>
+      <td class="table-cell"> {{ valuesPoint2[i] }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="text-center">
+  <div id="simField" *ngIf="valuesPoint1.length > 0 && valuesPoint2.length > 0">
+    <p> distance = {{ this.similarities["euclidean"] }} </p>
+  </div>
+</div>
+
+

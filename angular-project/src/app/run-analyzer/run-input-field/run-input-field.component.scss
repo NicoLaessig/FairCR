@@ -1,0 +1,200 @@
+.form-container {
+
+  background-color: #f5f5f5;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-left: 2em;
+  margin-right: 2em;
+}
+
+.navbar-container {
+  background-color: #85868e; /* Dunklere Hintergrundfarbe */
+  color: #fff;
+  padding: 10px;
+  margin-top: 8em;
+  margin-left: 2em;
+  margin-right: 2em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+
+.btn-info {
+  flex-grow: 1; /* Lässt den Button die verfügbare Breite minus Icon-Container nutzen */
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  font-size: 30px;
+  color: white;
+  margin-left: 10px; /* Abstand zwischen den Icons */
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.form-group.col-md-2 {
+  flex: 0 0 14%; /* Ändern Sie die Breite auf 10% oder passen Sie den Prozentsatz nach Bedarf an */
+}
+
+.form-group {
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.form-group label {
+  margin-left: 10px;
+  margin-right: 17px;
+  font-size: 20px;
+}
+
+.form-group .form-check-input {
+  transform: scale(2);
+}
+
+.nav-button {
+  margin-right: 10px;
+}
+
+
+.btn-custom {
+  display: flex;
+  width: 100%;
+
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  background-color: #f9cf9b;
+  color: #333;
+}
+.btn-success {
+  margin-right: 10px;
+}
+.btn-info {
+  margin-right: 10px;
+}
+.dropdown {
+
+}
+
+.dropdown.highlighted .btn-secondary {
+  border: 4px solid #000000;
+
+}
+
+
+.custom-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #ccc;
+}
+
+.submit-button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+.dropdown {
+  margin-right: 10px; /* Fügt einen Abstand am unteren Rand jedes Dropdown-Blocks hinzu */
+}
+
+#dropdownMenuButton1.dropdown-toggle::after {
+  display: none;
+}
+
+.input-group>.form-control:not(:last-child),
+.input-group>.form-select:not(:last-child),
+.input-group>.btn:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-right: -1px; /* Entfernt den Abstand zwischen den Elementen */
+}
+
+.input-group>.form-control, .input-group>.form-select, .input-group>.btn {
+    margin-left: 0; /* Entfernt den Standard-Bootstrap-Abstand links */
+}
+
+.input-group div {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input-group input[type="range"] {
+  flex-grow: 1; /* Ensures the slider expands to fill the space */
+}
+
+.input-group-text {
+  white-space: nowrap; /* Prevents the text from wrapping */
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+}
+
+.form-check {
+    padding-left: 34px;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Abstand zwischen den Checkbox-Gruppen */
+    border: 1px solid #ddd; /* Fügt einen Rahmen hinzu */
+    border-radius: 4px; /* Abgerundete Ecken für den Rahmen */
+    padding: 15px; /* Innenabstand */
+    margin-bottom: 15px; /* Abstand nach unten */
+    background-color: #f9f9f9; /* Leichter Hintergrundfarbton */
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center; /* Zentriert die Elemente vertikal */
+    padding: 5px 10px; /* Innenabstand um Checkbox und Beschriftung */
+    border: 1px solid #ddd; /* Grauer Rand um die Checkbox-Gruppe */
+    border-radius: 5px; /* Abgerundete Ecken */
+    background-color: #f9f9f9; /* Hintergrundfarbe */
+    margin-right: 5px; /* Abstand zur nächsten Checkbox-Gruppe rechts */
+
+}
+
+.icon {
+  font-size: 30px; /* einheitliche Schriftgröße */
+  margin-right: 10px; /* einheitlicher rechter Margin */
+}
+
+.checkbox-group label {
+    margin-left: 15px; /* Abstand zwischen Checkbox und Text */
+    white-space: nowrap; /* Verhindert Umbruch des Textes */
+}
+
+.checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* provides space between checkbox groups */
+}
+
+.form-section {
+  border: 1px solid #ddd; /* Fügt einen Rahmen hinzu */
+  border-radius: 4px; /* Abgerundete Ecken für den Rahmen */
+  padding: 20px; /* Innenabstand */
+  margin-bottom: 15px; /* Abstand nach unten */
+  background-color: #f9f9f9; /* Leichter Hintergrundfarbton */
+}
+

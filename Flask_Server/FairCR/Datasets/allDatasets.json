@@ -1,0 +1,38 @@
+{
+    "communities": {
+        "index": "index",
+        "label": "crime",
+        "protectedAttributes": "race",
+        "FavoredAttributes": "1"
+    },
+    "acs2017_cencus": {
+        "index": "index",
+        "label": "Income",
+        "protectedAttributes": "Race",
+        "FavoredAttributes": "1"
+    },
+    "adult_data_set_sex": {
+        "index": "index",
+        "label": "salary",
+        "protectedAttributes": "sex",
+        "FavoredAttributes": "1"
+    },
+    "compas": {
+        "index": "index",
+        "label": "Two_yr_Recidivism",
+        "protectedAttributes": "Race",
+        "FavoredAttributes": "1"
+    },
+    "credit_card_clients": {
+        "index": "index",
+        "label": "payment",
+        "protectedAttributes": "sex",
+        "FavoredAttributes": "1"
+    },
+    "german": {
+        "index": "index",
+        "label": "job",
+        "protectedAttributes": "sex",
+        "FavoredAttributes": "1"
+    }
+}

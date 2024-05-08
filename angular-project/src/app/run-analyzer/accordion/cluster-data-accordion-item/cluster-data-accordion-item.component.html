@@ -1,0 +1,87 @@
+
+  <div class="row">
+    <div class="form-group col-12">
+      <label for="RunSelect"> Select Run </label>
+      <select id="RunSelect" class="form-control form-control-sm" [(ngModel)]="runName" (ngModelChange)="onRunChange()">
+        <option *ngFor="let runName of runNames; let i = index">{{runName}}</option>
+      </select>
+      <label for="ClusterSelect"> Select Cluster </label>
+      <select [(ngModel)]="selectedCluster" (ngModelChange)="getClusterInformation()" class="form-control"
+              id="ClusterSelect">
+        <option *ngFor="let cluster of cluster[runName]; let i = index">{{cluster}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="row" *ngIf="selectedCluster">
+    <div class="form-group col-md-4">
+      <label for="metric"> Metric </label>
+      <select [(ngModel)]="this.newMetric" name="metric" type="string" class="form-control"
+              id="metric">
+        <option>demographic_parity</option>
+        <option>equalized_odds</option>
+        <option>equal_opportunity</option>
+        <option>treatment_equality</option>
+      </select>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="weight">Weight</label>
+      <input [(ngModel)]="this.newWeight" name="weight" type="string" class="form-control"
+             id="weight">
+    </div>
+
+    <div class="form-group col-md-4 d-flex align-items-end">
+      <button (click)="getBestModelCombination()" type="button" class="btn btn-primary mb-2">Submit</button>
+    </div>
+  </div>
+
+<table class="table table-striped" *ngIf="selectedCluster">
+  <thead>
+  <tr>
+    <th>model</th>
+    <th *ngFor="let sens of sensitive[runName]">{{sens}}</th>
+    <th>num_of_element</th>
+    <th>num_of_element_y0</th>
+    <th>num_of_element_y1</th>
+    <th>inacc_sum</th>
+    <th>inacc_sum_y0</th>
+    <th>inacc_sum_y1</th>
+    <th>inaccuracy</th>
+    <th>inaccuracy_y0</th>
+    <th>inaccuracy_y1</th>
+    <th>pppv</th>
+    <th>pppv_y0</th>
+    <th>pppv_y1</th>
+    <th>ppv_sum</th>
+    <th>ppv_sum_y0</th>
+    <th>ppv_sum_y1</th>
+    <th>fn</th>
+    <th>fp</th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-container *ngFor="let row of tableData">
+    <tr [ngClass]="{'table-primary': usedModelcombination.includes(row.model)}">
+      <td>{{row.model}}</td>
+      <td *ngFor="let sens of sensitive[runName]">{{row[sens]}}</td>
+      <td>{{row.num_of_elem}}</td>
+      <td>{{row.num_of_elem_y0}}</td>
+      <td>{{row.num_of_elem_y1}}</td>
+      <td>{{row.inacc_sum}}</td>
+      <td>{{row.inacc_sum_y0}}</td>
+      <td>{{row.inacc_sum_y1}}</td>
+      <td>{{row.inaccuracy}}</td>
+      <td>{{row.inaccuracy_y0}}</td>
+      <td>{{row.inaccuracy_y1}}</td>
+      <td>{{row.pppv}}</td>
+      <td>{{row.pppv_y0}}</td>
+      <td>{{row.pppv_y1}}</td>
+      <td>{{row.ppv_sum}}</td>
+      <td>{{row.ppv_sum_y0}}</td>
+      <td>{{row.ppv_sum_y1}}</td>
+      <td>{{row.fn}}</td>
+      <td>{{row.fp}}</td>
+    </tr>
+  </ng-container>
+  </tbody>
+</table>
+

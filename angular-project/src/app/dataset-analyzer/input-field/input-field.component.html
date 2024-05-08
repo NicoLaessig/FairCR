@@ -1,0 +1,50 @@
+<div class="input-rows">
+  <div *ngFor="let inputRow of inputRows; let i = index">
+    <form>
+      <div class="input-group formulas-form-row">
+        <div class="col">
+          <input [(ngModel)]="inputRow.dataset" name="dataset" type="text" class="form-control" [placeholder]="'Dataset'">
+        </div>
+<!--        <div class="col">-->
+<!--          <input [(ngModel)]="inputRow.sensAttrs" name="sensAttrs" type="text" class="form-control" [placeholder]="'Sens Attributes'">-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--          <input [(ngModel)]="inputRow.favored" name="favored" type="text" class="form-control" [placeholder]="'Favored'">-->
+<!--        </div>-->
+        <div class="col">
+          <input [(ngModel)]="inputRow.label" name="label" type="text" class="form-control" [placeholder]="'label'">
+        </div>
+<!--        <div class="col">-->
+<!--          <input [(ngModel)]="inputRow.metric" name="metric" type="text" class="form-control" [placeholder]="'metric'">-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--          <input [(ngModel)]="inputRow.training" name="training" type="text" class="form-control" [placeholder]="'training'">-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--          <input [(ngModel)]="inputRow.proxy" name="proxy" type="text" class="form-control" [placeholder]="'proxy'">-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--          <input [(ngModel)]="inputRow.allowed" name="allowed" type="text" class="form-control" [placeholder]="'allowed'">-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--          <input [(ngModel)]="inputRow.ccr" name="ccr" type="text" class="form-control" [placeholder]="'ccr'">-->
+<!--        </div>-->
+<!--        <div class="col">-->
+<!--          <input [(ngModel)]="inputRow.ca" name="ca" type="text" class="form-control" [placeholder]="'ca'">-->
+<!--        </div>-->
+        <div class="col">
+          <input [(ngModel)]="inputRow.randomstate" name="randomstate" type="text" class="form-control" [placeholder]="'randomstate'">
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="buttons">
+<!--    <button class="btn btn-outline-success" (click)="addRow()" type="button"> +</button>-->
+<!--    <button class="btn btn-outline-danger" (click)="deleteRow()" type="button"> -</button>-->
+    <button (click)="submitData()" class="btn btn-outline-info" type="submit" style="width: 103px">
+      Submit <i class="bi bi-search"></i>
+    </button>
+  </div>
+</div>
+
+

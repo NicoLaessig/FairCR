@@ -1,0 +1,26 @@
+<div class="container" id="chartContainer">
+  <canvas id="scatter-chart" ></canvas>
+    <div class="text-center">
+      <div class="row">
+        <div class="col-3">
+          <label for="xAxisInput">X-Achse</label>
+          <select id="xAxisInput" class="form-control form-control-sm" [(ngModel)]="attributeXAxis">
+            <option *ngFor="let attribute of attributes; let i = index">{{attributes[i]}}</option>
+          </select>
+        </div>
+        <div class="col-3">
+          <label for="yAxisInput">Y-Achse</label>
+          <select id="yAxisInput" class="form-control form-control-sm" [(ngModel)]="attributeYAxis">
+            <option *ngFor="let attribute of attributes; let i = index">{{attributes[i]}}</option>
+          </select>
+        </div>
+        <div class="col-2 mt-4">
+          <button class="btn btn-outline-dark btn-sm" (click)="setAxes()">Change Axes</button>
+        </div>
+        <div class="col-2 mt-4 ">
+          <button class="btn btn-outline-dark btn-sm" (click)="resetZoom()">Reset zoom</button>
+        </div>
+      </div>
+    </div>
+</div>
+

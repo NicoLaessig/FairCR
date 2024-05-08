@@ -1,0 +1,277 @@
+<div *ngIf="runsTrained" id="accordion">
+
+    <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center" id="headingZero">
+      <button class="btn btn-link custom-link" data-bs-toggle="collapse" data-bs-target="#collapseZero"
+              aria-expanded="true"
+              aria-controls="collapseZero">
+        Show recommendations
+      </button>
+      <i class="bi bi-info-square" style="font-size: 30px; cursor: pointer;"
+         (click)="showInformationModel('informationModalRecommendation')"></i>
+    </div>
+    <div id="collapseZero" class="collapse" aria-labelledby="collapseZero" data-parent="#accordion">
+      <div class="card-body">
+        <app-recommendation-accordion-item [allRuns]="allRuns"></app-recommendation-accordion-item>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center" id="headingOne">
+      <button class="btn btn-link custom-link" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+              aria-expanded="true"
+              aria-controls="collapseOne">
+        Show dataset scatter chart
+      </button>
+      <i class="bi bi-info-square" style="font-size: 30px; cursor: pointer;"
+         (click)="showInformationModel('informationModalDataset')"></i>
+    </div>
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        <app-dataset-accordion-item [allRuns]="allRuns" [modelNames]="modelNames"></app-dataset-accordion-item>
+      </div>
+    </div>
+  </div>
+
+<!--  <div class="card">-->
+<!--    <div class="card-header d-flex justify-content-between align-items-center" id="headingFive">-->
+<!--      <button class="btn btn-link custom-link" data-bs-toggle="collapse" data-bs-target="#collapseFive"-->
+<!--              aria-expanded="true"-->
+<!--              aria-controls="collapseFive">-->
+<!--        Show clusterinformation data-->
+<!--      </button>-->
+<!--      <i class="bi bi-info-square" style="font-size: 30px; cursor: pointer;"-->
+<!--         (click)="showInformationModel('informationModalClusterInformation')"></i>-->
+<!--    </div>-->
+<!--    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">-->
+<!--      <div class="card-body">-->
+<!--        <app-cluster-data-accordion-item [totalMetricData]="totalMetricData" [cluster]="cluster"-->
+<!--                                         [sensitive]="sensitive"></app-cluster-data-accordion-item>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center" id="headingTwo">
+
+      <button class="btn btn-link custom-link" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+              aria-expanded="true"
+              aria-controls="collapseOne">
+        Show metric scatter chart
+      </button>
+      <i class="bi bi-info-square" style="font-size: 30px; cursor: pointer;"
+         (click)="showInformationModel('informationModalMetricScatter')"></i>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        <app-metric-scatter-accordion-item [metrics]="metrics"
+                                           [totalMetricData]="totalMetricData"
+                                           [allRuns]="allRuns"
+                                           [modelNames]="modelNames"></app-metric-scatter-accordion-item>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center" id="headingThree">
+
+      <button class="btn btn-link custom-link" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+              aria-expanded="true"
+              aria-controls="collapseOne">
+        Show metric bar chart
+      </button>
+      <i class="bi bi-info-square" style="font-size: 30px; cursor: pointer;"
+         (click)="showInformationModel('informationModalBarChart')"></i>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        <app-metric-barchart-accordion-item [allRuns]="allRuns" [metrics]="metrics"
+                                            [totalMetricData]="totalMetricData"></app-metric-barchart-accordion-item>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center" id="headingFour">
+
+      <button class="btn btn-link custom-link" data-bs-toggle="collapse" data-bs-target="#collapseFour"
+              aria-expanded="true"
+              aria-controls="collapseFour">
+        Show boxplot
+      </button>
+      <i class="bi bi-info-square" style="font-size: 30px; cursor: pointer;"
+         (click)="showInformationModel('informationModalBoxPlot')"></i>
+    </div>
+    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+      <div class="card-body">
+        <app-metric-boxplot-accordion-item [metrics]="metrics"
+                                           [totalMetricData]="totalMetricData"
+                                           [allRuns]="allRuns"></app-metric-boxplot-accordion-item>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Dataset Modal -->
+<div class="modal" id="informationModalDataset">
+  <div class="modal-dialog" style="max-width: 80%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"> Information Text </h5>
+        <button type="button" class="btn-close" data-dismiss="modal"
+                (click)="closeInformationModal('informationModalDataset')"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          The following tools are integrated into this component:
+        </p>
+        <ul class="list-group">
+          <li class="list-group-item disabled">Visualize the dataset in 2D by either: <br>
+            <ul>
+              <li>T-SNE Algorithm: Reduces the dimensionality of the dataset, but may result in loss of information.
+              </li>
+              <li>Manually selecting an attribute for each axis.</li>
+            </ul>
+            <br>
+            There are multiple additional visualization options that can be combined: <br>
+            <ul>
+              <li>Visualizing the clusters generated by the FALCC algorithm.</li>
+              <li>Visualizing the predictions made by the FALCC algorithm.</li>
+              <li>Visualizing whether a prediction was correct.</li>
+              <li>Visualizing the actual label in the dataset.</li>
+              <li>Visualizing the sensitive groups.</li>
+            </ul>
+          </li>
+          <br>
+          <li class="list-group-item">Inspect a datapoint: <br>
+            By clicking on a datapoint, you can inspect every attribute value in the table.
+          </li>
+          <li class="list-group-item">Start the offline phase: <br>
+            Each run will predict the point, and each submodel will make
+            a prediction. The row highlighted in blue indicates which submodel was used for the prediction.
+          </li>
+
+          <li class="list-group-item">Initiate counterfactual controls: <br>
+            Identify the point that is most similar to the selected point but has a different prediction.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Clusterinformation Modal -->
+<div class="modal" id="informationModalClusterInformation">
+  <div class="modal-dialog" style="max-width: 80%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"> Information Text </h5>
+        <button type="button" class="btn-close" data-dismiss="modal"
+                (click)="closeInformationModal('informationModalClusterInformation')"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          The following information is visualized in this component:
+        </p>
+        <ul class="list-group">
+          <li class="list-group-item disabled"> The calculations used to assess the models during the model assessment
+            phase.
+            For every sensitive group and predicted label combination, it shows: <br>
+            <ul>
+              <li>Number of points in this group.</li>
+              <li>The inaccuracy.</li>
+              <li>The probability of a positive prediction.</li>
+              <li>The false negatives and false positives.</li>
+            </ul>
+          </li>
+          <br>
+          <li class="list-group-item">
+            For a specified λ and fairness metric, it highlights the model combination that performed the best on the
+            validation data, according to the loss function.
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Metric Scatter Modal -->
+<div class="modal" id="informationModalMetricScatter">
+  <div class="modal-dialog" style="max-width: 80%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"> Information Text </h5>
+        <button type="button" class="btn-close" data-dismiss="modal"
+                (click)="closeInformationModal('informationModalMetricScatter')"></button>
+      </div>
+      <div class="modal-body">
+        Select a metric for each axis (or create new metrics) and visualize: <br>
+        <ul>
+          <li> The performance of the final FALCC models or/and each submodel. </li>
+          <li> The performance of every single run or the average for each configuration. </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bar Chart Modal -->
+<div class="modal" id="informationModalBarChart">
+  <div class="modal-dialog" style="max-width: 80%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"> Information Text </h5>
+        <button type="button" class="btn-close" data-dismiss="modal"
+                (click)="closeInformationModal('informationModalBarChart')"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+         The following information is visualized in this component:
+        </p>
+        <ul>
+          <li> The performance of the final FALCC models for up to 3 metrics. </li>
+          <li> The performance of one specified run and its submodels for 1 metric. </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Boxplot Chart Modal -->
+<div class="modal" id="informationModalBoxPlot">
+  <div class="modal-dialog" style="max-width: 80%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"> Information Text </h5>
+        <button type="button" class="btn-close" data-dismiss="modal"
+                (click)="closeInformationModal('informationModalBoxPlot')"></button>
+      </div>
+      <div class="modal-body">
+        Select a metric and a configuration to show the box plots, including:
+        <ul>
+          <li> The median, lowest, highest, first quartile (Q1), third quartile (Q3), minimum, and maximum for the final FALCC runs. </li>
+          <li> The median, lowest, highest, Q1, Q3, minimum, and maximum, but ONLY for the submodels. </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Recommendation Modal -->
+<div class="modal" id="informationModalRecommendation">
+  <div class="modal-dialog" style="max-width: 80%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"> Information Text </h5>
+        <button type="button" class="btn-close" data-dismiss="modal"
+                (click)="closeInformationModal('informationModalRecommendation')"></button>
+      </div>
+      <div class="modal-body">
+        TODO
+      </div>
+    </div>
+  </div>
+</div>

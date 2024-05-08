@@ -1,0 +1,18 @@
+.input-rows {
+  margin-top: 100px;
+}
+.buttons{
+  margin-top: 10px;
+}
+#similarityField{
+  display:flex;
+  align-items: center;
+}
+.sticky-header {
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  background-color: #fff; /* Hintergrundfarbe anpassen */
+}

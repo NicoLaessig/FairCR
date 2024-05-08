@@ -1,0 +1,158 @@
+<div class="navbar-container d-flex align-items-center justify-content-between">
+  <div class="icon-container ms-auto">
+<!--    <i class="bi bi-database icon" (click)="getTrainedRuns()"></i>-->
+<!--    <i class="bi bi-upload icon" (click)="showDatasetUploadModel()"></i>-->
+    <i class="bi bi-info-square icon" (click)="showInformationModel()"></i>
+  </div>
+</div>
+
+<div class="form-container">
+  <form>
+    <div class="form-section mb-3">
+      <div class="row mb-3">
+        <div class="form-group col-md-1">
+          <div class="input-group">
+            <span class="input-group-text" id="datasize-addon">Datasize</span>
+            <input [(ngModel)]="this.configuration.datasize" name="datasize" type="string"
+                   class="form-control" id="datasize" placeholder="race" aria-describedby="datasize-addon">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-section mb-3">
+      <div class="row mb-3">
+        <div class="form-group col-md-1">
+          <div class="input-group">
+            <span class="input-group-text" id="metric-addon">Target fairness metric</span>
+            <select [(ngModel)]="this.configuration.metric" name="metric" type="string"
+                    class="form-control"
+                    id="metric">
+              <option>demographic_parity</option>
+              <option>equalized_odds</option>
+              <option>equal_opportunity</option>
+              <option>treatment_equality</option>
+              <option>consistency</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group col-md-1">
+          <div class="input-group">
+            <div style="display: flex; align-items: center; width: 100%;">
+              <span class="input-group-text" id="lamda-addon">Weight of the fairness term</span>
+              <input type="range" class="form-range" id="lamda" name="lamda"
+                     [(ngModel)]="this.configuration.lambda" min="0" max="1" step="0.01"
+                     aria-label="Lamda" aria-describedby="lamda-addon">
+              <span class="input-group-text">{{ this.configuration.lambda | number:'1.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-md-1">
+          <div class="input-group">
+            <div style="display: flex; align-items: center; width: 100%;">
+              <span class="input-group-text" id="locallamda-addon">Weight of local fairness</span>
+              <input type="range" class="form-range" id="locallamda" name="localLamda"
+                     [(ngModel)]="this.configuration.localLambda" min="0" max="1" step="0.01"
+                     aria-label="Local Lamda" aria-describedby="locallamda-addon">
+              <span class="input-group-text">{{ this.configuration.localLambda | number:'1.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-section mb-3">
+      <div class="row mb-3">
+        <div class="form-group col-md-1">
+          <div class="input-group">
+            <div style="display: flex; align-items: center; width: 100%;">
+              <span class="input-group-text" id="runTime-addon">Importance of runtime</span>
+              <input type="range" class="form-range" id="runTime" name="runTime"
+                     [(ngModel)]="this.configuration.runTime" min="0" max="1" step="0.01"
+                     aria-label="runtime" aria-describedby="runTime-addon">
+              <span class="input-group-text">{{ this.configuration.runTime | number:'1.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-1">
+          <div class="input-group">
+            <div style="display: flex; align-items: center; width: 100%;">
+              <span class="input-group-text" id="memory-addon">Maximum usage of available memory</span>
+              <input type="range" class="form-range" id="memory" name="memory"
+                     [(ngModel)]="this.configuration.memory" min="0" max="1" step="0.01"
+                     aria-label="memory" aria-describedby="runtime-addon">
+              <span class="input-group-text">{{ this.configuration.memory | number:'1.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="input-group">
+          <div class="checkbox-group">
+            <input [(ngModel)]="this.configuration.tuning" class="form-check-input"
+                   type="checkbox"
+                   value="False" id="hyperparameterTuning" name="hyperparameterTuning">
+            <label class="form-check-label" for="hyperparameterTuning">
+              Tune hyperparameters?
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="submit-button-container">
+        <button (click)="submitData()" class="btn btn-custom" type="submit">
+          Start Algorithms
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="recommendationReady" id="accordion">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center" id="headingZero">
+      <button class="btn btn-link custom-link" data-bs-toggle="collapse" data-bs-target="#collapseZero"
+              aria-expanded="true"
+              aria-controls="collapseZero">
+        Show recommendations
+      </button>
+
+    </div>
+    <div id="collapseZero" class="collapse" aria-labelledby="collapseZero" data-parent="#accordion">
+      <div class="card-body">
+        <table class="table table-striped table-hover">
+          <thead class="thead-dark">
+          <tr>
+            <th>model</th>
+            <th>ranking</th>
+            <th>score</th>
+            <th>error_rate</th>
+            <th>global bias</th>
+            <th>local bias</th> 
+            <th>expected_memory_usage</th>
+            <th>expected_runtime</th>
+            <th>expected_runtime_normalized</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let row of recommendations">
+            <td>{{ row.model }}</td>
+            <td>{{ row.ranking }}</td>
+            <td>{{ row.score }}</td>
+            <td>{{ row.error_rate }}</td>
+            <td>{{ row.global }}</td>
+            <td>{{ row.local }}</td>
+            <td>{{ row.expected_memory_usage }}</td>
+            <td>{{ row.expected_runtime }}</td>
+            <td>{{ row.expected_runtime_normalized }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

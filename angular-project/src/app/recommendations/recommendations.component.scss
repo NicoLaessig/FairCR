@@ -1,0 +1,16 @@
+/* Stile für die Kopfzeile des kollabierbaren Bereichs */
+.custom-link {
+    color: black; /* Setzt die Schriftfarbe auf Schwarz */
+    text-align: center; /* Zentriert den Text im Button */
+    width: 100%; /* Erstreckt sich über die gesamte Breite des Elternelements */
+}
+
+/* Stile für die gesamte Card, um Abstand hinzuzufügen */
+.card-header {
+    margin-top: 20px; /* Fügt einen oberen Rand von 20px hinzu */
+}
+
+/* Optional: Stile für den Body der Karte, um den Text zu zentrieren */
+.card-body {
+    text-align: center;
+}

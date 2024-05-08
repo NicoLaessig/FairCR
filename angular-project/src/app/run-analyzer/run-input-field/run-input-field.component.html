@@ -1,0 +1,723 @@
+<div class="navbar-container d-flex align-items-center justify-content-between">
+  <div *ngFor="let currentRun of Runs; let i = index">
+    <div class="dropdown" [ngClass]="{'highlighted': isShownRun(i)}">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+        {{currentRun.name}}
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <button (click)="changeShownRun(i)" class="dropdown-item">Change parameter</button>
+        <button (click)="copyRun(i)" class="dropdown-item">Copy Run</button>
+        <button (click)="deleteRun(i)" class="dropdown-item">Delete Run</button>
+      </div>
+    </div>
+  </div>
+  <div class="submit-button-container">
+    <button class="btn btn-success" (click)="addRun()" type="button"> +</button>
+  </div>
+  <div class="icon-container ms-auto">
+    <i class="bi bi-database icon" (click)="getTrainedRuns()"></i>
+    <i class="bi bi-upload icon" (click)="showDatasetUploadModel()"></i>
+    <i class="bi bi-info-square icon" (click)="showInformationModel()"></i>
+  </div>
+</div>
+
+<div class="form-container">
+  <form>
+    <div class="form-section mb-3">
+      <div class="row mb-3">
+        <div class="form-group col-md-1">
+
+          <div class="input-group">
+            <span class="input-group-text" id="Dataset-addon">Dataset</span>
+            <input type="file"  style="display: none">
+            <select [(ngModel)]="this.Runs[this.currentShownRun].dataset" name="Dataset"
+                    (ngModelChange)="onDataSetChange()" class="form-select">
+              <option *ngFor="let datasetName of datasets">{{datasetName}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group col-md-1">
+          <div class="input-group">
+            <span class="input-group-text" id="index-addon">Index name</span>
+            <input [(ngModel)]="this.Runs[this.currentShownRun].index" name="index" type="string" class="form-control"
+                   id="index">
+          </div>
+        </div>
+
+        <div class="form-group col-md-1">
+          <div class="input-group">
+            <span class="input-group-text" id="label-addon">Label name</span>
+            <input [(ngModel)]="this.Runs[this.currentShownRun].label" name="label" type="string" class="form-control"
+                   id="label">
+          </div>
+        </div>
+
+        <!--        <div class="form-group col-md-1">-->
+        <!--          <div class="input-group">-->
+        <!--            <span class="input-group-text" id="testsize-addon">Testsize</span>-->
+        <!--            <input [(ngModel)]="this.runs[this.currentShownRun].testsize" name="testsize" type="string"-->
+        <!--                   class="form-control" id="testsize" placeholder="0.5">-->
+        <!--          </div>-->
+        <!--        </div>-->
+
+        <!--        <div class="form-group col-md-1">-->
+        <!--          <div class="input-group">-->
+        <!--            <span class="input-group-text" id="predsize-addon">Predsize</span>-->
+        <!--            <input [(ngModel)]="this.runs[this.currentShownRun].predsize" name="predsize" type="string"-->
+        <!--                   class="form-control" id="predsize" placeholder="0.3">-->
+        <!--          </div>-->
+        <!--        </div>-->
+
+        <div class="form-group col-md-1">
+          <div class="input-group">
+            <span class="input-group-text" id="sensitive-addon">Protected attribute name</span>
+            <input [(ngModel)]="this.Runs[this.currentShownRun].sensitive" name="sensitive" type="string"
+                   class="form-control" id="sensitive" placeholder="race" aria-describedby="sensitive-addon">
+          </div>
+        </div>
+
+        <div class="form-group col-md-1">
+          <div class="input-group">
+            <span class="input-group-text" id="favored-addon">Favored attribute name</span>
+            <input [(ngModel)]="this.Runs[this.currentShownRun].favored" name="favored" type="string"
+                   class="form-control"
+                   id="favored" placeholder="1" aria-describedby="favored-addon">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="mb-3 checkbox-container">
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="Reweighing"
+               (change)="onModelChange('Reweighing', $event)" [checked]="isModelSelected('Reweighing')" >
+        <label class="form-check-label" for="Reweighing">
+          Reweighing
+        </label>
+      </div>
+
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="LFR"
+               (change)="onModelChange('LFR', $event)" [checked]="isModelSelected('LFR')" >
+        <label class="form-check-label" for="LFR">
+          LFR
+        </label>
+      </div>
+
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="DisparateImpactRemover"
+               (change)="onModelChange('DisparateImpactRemover', $event)" [checked]="isModelSelected('DisparateImpactRemover')" >
+        <label class="form-check-label" for="DisparateImpactRemover">
+          DisparateImpactRemover
+        </label>
+      </div>
+
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="Fair-SMOTE"
+               (change)="onModelChange('Fair-SMOTE', $event)" [checked]="isModelSelected('Fair-SMOTE')" >
+        <label class="form-check-label" for="Fair-SMOTE">
+          Fair-SMOTE
+        </label>
+      </div>
+
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="LTDD"
+               (change)="onModelChange('LTDD', $event)" [checked]="isModelSelected('LTDD')" >
+        <label class="form-check-label" for="LTDD">
+          LTDD
+        </label>
+      </div>
+
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="PrejudiceRemover"
+               (change)="onModelChange('PrejudiceRemover', $event)" [checked]="isModelSelected('PrejudiceRemover')" >
+        <label class="form-check-label" for="PrejudiceRemover">
+          PrejudiceRemover
+        </label>
+      </div>
+
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="FairnessConstraintModel"
+               (change)="onModelChange('FairnessConstraintModel', $event)" [checked]="isModelSelected('FairnessConstraintModel')" >
+        <label class="form-check-label" for="FairnessConstraintModel">
+          FairnessConstraintModel
+        </label>
+      </div>
+
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="DisparateMistreatmentModel"
+               (change)="onModelChange('DisparateMistreatmentModel', $event)" [checked]="isModelSelected('DisparateMistreatmentModel')" >
+        <label class="form-check-label" for="DisparateMistreatmentModel">
+          DisparateMistreatmentModel
+        </label>
+      </div>
+
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="GerryFairClassifier"
+               (change)="onModelChange('GerryFairClassifier', $event)" [checked]="isModelSelected('GerryFairClassifier')" >
+        <label class="form-check-label" for="GerryFairClassifier">
+          GerryFairClassifier
+        </label>
+      </div>
+
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="AdversarialDebiasing"
+               (change)="onModelChange('AdversarialDebiasing', $event)" [checked]="isModelSelected('AdversarialDebiasing')" >
+        <label class="form-check-label" for="AdversarialDebiasing">
+          AdversarialDebiasing
+        </label>
+      </div>
+
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="ExponentiatedGradientReduction"
+               (change)="onModelChange('ExponentiatedGradientReduction', $event)" [checked]="isModelSelected('ExponentiatedGradientReduction')" >
+        <label class="form-check-label" for="ExponentiatedGradientReduction">
+          ExponentiatedGradientReduction
+        </label>
+      </div>
+
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="GridSearchReduction"
+               (change)="onModelChange('GridSearchReduction', $event)" [checked]="isModelSelected('GridSearchReduction')" >
+        <label class="form-check-label" for="GridSearchReduction">
+          GridSearchReduction
+        </label>
+      </div>
+
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="MetaFairClassifier"
+               (change)="onModelChange('MetaFairClassifier', $event)" [checked]="isModelSelected('MetaFairClassifier')" >
+        <label class="form-check-label" for="MetaFairClassifier">
+          MetaFairClassifier
+        </label>
+      </div>
+
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="FAGTB"
+               (change)="onModelChange('FAGTB', $event)" [checked]="isModelSelected('FAGTB')" >
+        <label class="form-check-label" for="FAGTB">
+          FAGTB
+        </label>
+      </div>
+
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="GradualCompatibility"
+               (change)="onModelChange('GradualCompatibility', $event)" [checked]="isModelSelected('GradualCompatibility')" >
+        <label class="form-check-label" for="GradualCompatibility">
+          GradualCompatibility
+        </label>
+      </div>
+
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="FairGeneralizedLinearModel"
+               (change)="onModelChange('FairGeneralizedLinearModel', $event)" [checked]="isModelSelected('FairGeneralizedLinearModel')" >
+        <label class="form-check-label" for="FairGeneralizedLinearModel">
+          FairGeneralizedLinearModel
+        </label>
+      </div>
+
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="RejectOptionClassification"
+               (change)="onModelChange('RejectOptionClassification', $event)" [checked]="isModelSelected('RejectOptionClassification')" >
+        <label class="form-check-label" for="RejectOptionClassification">
+          RejectOptionClassification
+        </label>
+      </div>
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="EqOddsPostprocessing"
+               (change)="onModelChange('EqOddsPostprocessing', $event)" [checked]="isModelSelected('EqOddsPostprocessing')" >
+        <label class="form-check-label" for="EqOddsPostprocessing">
+          EqOddsPostprocessing
+        </label>
+      </div>
+
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="CalibratedEqOddsPostprocessing"
+               (change)="onModelChange('CalibratedEqOddsPostprocessing', $event)" [checked]="isModelSelected('CalibratedEqOddsPostprocessing')" >
+        <label class="form-check-label" for="CalibratedEqOddsPostprocessing">
+          CalibratedEqOddsPostprocessing
+        </label>
+      </div>
+
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="JiangNachum"
+               (change)="onModelChange('JiangNachum', $event)" [checked]="isModelSelected('JiangNachum')" >
+        <label class="form-check-label" for="JiangNachum">
+          JiangNachum
+        </label>
+      </div>
+
+
+      <div class="checkbox-group">
+        <input class="form-check-input" type="checkbox" value="" id="FaX"
+               (change)="onModelChange('FaX', $event)" [checked]="isModelSelected('FaX')" >
+        <label class="form-check-label" for="FaX">
+          FaX
+        </label>
+      </div>
+
+    </div>
+    <div class="form-section mb-3">
+      <div class="row mb-3">
+        <div class="form-group col-md-1">
+          <div class="input-group">
+            <span class="input-group-text" id="metric-addon">Target fairness metric</span>
+            <select [(ngModel)]="this.Runs[this.currentShownRun].metric" name="metric" type="string"
+                    class="form-control"
+                    id="metric">
+              <option>demographic_parity</option>
+              <option>equalized_odds</option>
+              <option>equal_opportunity</option>
+              <option>treatment_equality</option>
+              <option>consistency</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group col-md-1">
+          <div class="input-group">
+            <div style="display: flex; align-items: center; width: 100%;">
+              <span class="input-group-text" id="lamda-addon">Weight of the fairness term</span>
+              <input type="range" class="form-range" id="lamda" name="lamda"
+                     [(ngModel)]="this.Runs[this.currentShownRun].lamda" min="0" max="1" step="0.01"
+                     aria-label="Lamda" aria-describedby="lamda-addon">
+              <span class="input-group-text">{{ this.Runs[this.currentShownRun].lamda | number:'1.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-md-1">
+          <div class="input-group">
+            <div style="display: flex; align-items: center; width: 100%;">
+              <span class="input-group-text" id="locallamda-addon">Weight of local fairness</span>
+              <input type="range" class="form-range" id="locallamda" name="localLamda"
+                     [(ngModel)]="this.Runs[this.currentShownRun].localLamda" min="0" max="1" step="0.01"
+                     aria-label="Local Lamda" aria-describedby="locallamda-addon">
+              <span class="input-group-text">{{ this.Runs[this.currentShownRun].localLamda | number:'1.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-section mb-3">
+      <div class="row mb-3">
+        <div class="form-group col-md-1">
+          <div class="input-group">
+            <div *ngIf="dataIsLoaded" style="display: flex; align-items: center; width: 100%;">
+              <span class="input-group-text" id="runTime-addon">Importance of runtime</span>
+              <input type="range" class="form-range" id="runTime" name="runTime"
+                     [(ngModel)]="this.Runs[this.currentShownRun].runTime" min="0" max="1" step="0.01"
+                     aria-label="runtime" aria-describedby="runTime-addon">
+              <span class="input-group-text">{{ this.Runs[this.currentShownRun].runTime | number:'1.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-1">
+          <div class="input-group">
+            <div *ngIf="dataIsLoaded" style="display: flex; align-items: center; width: 100%;">
+              <span class="input-group-text" id="memory-addon">Maximum usage of available memory</span>
+              <input type="range" class="form-range" id="memory" name="memory"
+                     [(ngModel)]="this.Runs[this.currentShownRun].memory" min="0" max="1" step="0.01"
+                     aria-label="memory" aria-describedby="runtime-addon">
+              <span class="input-group-text">{{ this.Runs[this.currentShownRun].memory | number:'1.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="form-group col-md-1">
+          <div class="input-group">
+            <div *ngIf="dataIsLoaded" style="display: flex; align-items: center; width: 100%;">
+              <span class="input-group-text" id="testsize-addon">Test split size</span>
+              <input type="range" class="form-range" id="testsize" name="testsize"
+                     [(ngModel)]="this.Runs[this.currentShownRun].testsize" min="0.0" max="1.0" step="0.01"
+                     aria-label="testsize" aria-describedby="testsize-addon">
+              <span class="input-group-text">{{ this.Runs[this.currentShownRun].testsize | number:'1.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-md-1">
+          <div class="input-group">
+            <div *ngIf="dataIsLoaded" style="display: flex; align-items: center; width: 100%;">
+              <span class="input-group-text" id="numberOfIterations-addon">Number of iterations</span>
+              <input type="range" class="form-range" id="numberOfIterations" name="runtime"
+                     [(ngModel)]="this.Runs[this.currentShownRun].numberOfRuns" min="1" max="30" step="1"
+                     aria-label="numberOfIterations" aria-describedby="runtime-addon">
+              <span class="input-group-text">{{ this.Runs[this.currentShownRun].numberOfRuns | number:'1.0-0' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-1">
+          <div class="input-group">
+            <span class="input-group-text" id="name-addon">Name</span>
+            <input [(ngModel)]="this.Runs[this.currentShownRun].name" name="name" type="string" class="form-control"
+                   id="name">
+          </div>
+        </div>
+        <div class="form-group col-md-2">
+          <div class="input-group">
+            <div class="checkbox-group">
+              <input [(ngModel)]="this.Runs[this.currentShownRun].hyperparameterTuning" class="form-check-input"
+                     type="checkbox"
+                     value="False" id="hyperparameterTuning" name="hyperparameterTuning">
+              <label class="form-check-label" for="hyperparameterTuning">
+                Tune hyperparameters?
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="submit-button-container">
+        <button (click)="submitData()" class="btn btn-custom" type="submit">
+          Start Algorithms
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<!-- Modal for trained Runs -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog" style="max-width: 80%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Trained Runs</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" (click)="closeModel()"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          The table displays the configuration details for each run that has undergone both the online and offline
+          phases.
+          You can click on the button corresponding to a specific run to automatically select that trained run. <br>
+          The number following the name indicates how many runs have been trained with that configuration. <br>
+          The displayed result will be the average over these runs.
+          Additionally, you have the option to train more runs with these configurations. To do this, click on the
+          button,
+          and after pressing submit, you will be prompted to decide whether you want to train additional models with the
+          same configuration.
+        </p>
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th *ngFor="let outerKey of getOuterKeys()" scope="col">
+                <div class="row mb-3">
+                  <div class="d-grid">
+                    <button (click)="addTrainedRun(outerKey, totalTrainedRuns[outerKey])" type="button"
+                            class="btn btn-outline-secondary ">{{outerKey + ", Count = " + totalTrainedRuns[outerKey]['numberOfRuns']}}
+                    </button>
+                  </div>
+                </div>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let innerKey of getInnerKeys()">
+              <th scope="row">{{ innerKey }}</th>
+              <td *ngFor="let outerKey of getOuterKeys()">
+                <!-- Überprüfung, ob der Inhalt ein Array ist -->
+                <ng-container *ngIf="isArray(totalTrainedRuns[outerKey][innerKey]); else nonArrayContent">
+                  <div *ngFor="let item of totalTrainedRuns[outerKey][innerKey]">
+                    {{ item }}
+                  </div>
+                </ng-container>
+                <ng-template #nonArrayContent>
+                  {{ totalTrainedRuns[outerKey][innerKey] }}
+                </ng-template>
+              </td>
+            </tr>
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for trained Runs information text -->
+<div class="modal" id="myModal2">
+  <div class="modal-dialog" style="max-width: 80%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"> Training selector </h5>
+        <button type="button" class="btn-close" data-dismiss="modal" (click)="closeModel2()"></button>
+      </div>
+      <div class="modal-body">
+        <p>For some selected configurations, a trained model already exists. Do you want to use it?<br>
+          If you choose "Retrain = No," the result will be the average of all trained models with the same
+          configuration.<br>
+          If you choose "Retrain = Yes," then "count" models will be trained and evaluated.
+        </p>
+
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">Run</th>
+              <th scope="col">Retrain ?</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let run of trainedRuns">
+              <td> {{run}} </td>
+              <td>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" [(ngModel)]="train[run]">
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <button class="btn btn-primary btn-lg" (click)="trainRuns()"> Train Runs</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Information modal -->
+<div class="modal" id="informationModalInput">
+  <div class="modal-dialog" style="max-width: 80%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"> Information Text </h5>
+        <button type="button" class="btn-close" data-dismiss="modal" (click)="closeInformationModalInput()"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          The following table shows all parameters and their meaning
+        </p>
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">Parameter</th>
+            <th scope="col">Meaning</th>
+            <th scope="col">Domain</th>
+            <th scope="col">Special features</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Dataset</td>
+            <td>Name of the dataset</td>
+            <td>Communities, ...</td>
+            <td> -</td>
+          </tr>
+          <tr>
+            <td>Index</td>
+            <td>Column name of the index</td>
+            <td>String</td>
+            <td> -</td>
+          </tr>
+          <tr>
+            <td>Label</td>
+            <td>Column name of the label</td>
+            <td>String</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Testsize</td>
+            <td>Percentage of the test data of the total data</td>
+            <td>[0 : 1]</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Predsize</td>
+            <td>Percentage of the prediction data of the total data</td>
+            <td>string</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Randomstate</td>
+            <td>Seed for random generator</td>
+            <td>&#8469; &gt; 0 &#8746; &#123;-1&#125;</td>
+            <td>-1 will generate a random number</td>
+          </tr>
+          <tr>
+            <td>Sensitive</td>
+            <td>Indicates the protected attributes</td>
+            <td>List of column names</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>favored</td>
+            <td>Indicates the favored value for each protected attribute</td>
+            <td>List of favored values</td>
+            <td>Lenghts of sensitive and favored have to match</td>
+          </tr>
+          <tr>
+            <td>Ignore Sensitive</td>
+            <td>Option to ignore the sensitive attributes when training the classifier</td>
+            <td>Boolean</td>
+            <td>- Todo Nico Fragen</td>
+          </tr>
+          <tr>
+            <td>Proxy</td>
+            <td>Name of the proxy discrimination mitigation technique that should be applied</td>
+            <td>&#123; reweigh, remove, no&#125;</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Allowed</td>
+            <td>The attributes that should be ignored when applying the proxy discrimination mitigation strategy</td>
+            <td>List of column names</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Training Alg</td>
+            <td>Name of the training strategy that sould be used</td>
+            <td>&#123; adaboost, opt_adaboost, opt_random_forest, single_classifiers, fair &#125;</td>
+            <td>The fair strategy uses already fair classifiers(FAX, SMOTE, LFR) as input</td>
+          </tr>
+          <tr>
+            <td>Modelsize</td>
+            <td> Number of trained submodels</td>
+            <td> Number</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Sbt</td>
+            <td>Option to train the classifiers seperately on each protected group</td>
+            <td>Boolean</td>
+            <td>Sbt has to be false for the fair training strategy</td>
+          </tr>
+          <tr>
+            <td>Cluster Alg</td>
+            <td> Algorithm used to predict the amount of clusters</td>
+            <td> &#123; LOGmeans, elbow &#125;</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Ccr-min and Ccr-max</td>
+            <td> Ccr-min indicates the minimum and Ccr-max the maximum number of clusters generated</td>
+            <td> Number</td>
+            <td> Ccr-min = Ccr-max will skip the Clustersize estimation algorithm, Ccr-min = Cc3-max = -1 indicated that
+              the amount of cluster is choosen automatically
+            </td>
+          </tr>
+          <tr>
+            <td>Metric</td>
+            <td> Group fairness metric which is used in the loss function</td>
+            <td> &#123; demographic_parity, equalized_odds, equal_opportunity, treatment_equality &#125;</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Weight</td>
+            <td> Weight for the loss function</td>
+            <td> [0 : 1]</td>
+            <td> 0 will only consider fairness, 1 will only consider accuracy</td>
+          </tr>
+          <tr>
+            <td>Name</td>
+            <td> How the Run will be called in the evaluation graphs</td>
+            <td> String</td>
+            <td> Choose Names that make sense for your configuration, dont choose the same name twice !</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for trained Runs information text -->
+<div class="modal" id="myModal3">
+  <div class="modal-dialog" style="max-width: 80%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"> Upload Dataset </h5>
+        <button type="button" class="btn-close" data-dismiss="modal" (click)="closeModel3()"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Upload a new dataset.
+          The data has to be in .csv format and only numerical values are allowed
+        </p>
+        <div class="form-section mb-3">
+          <div class="row mb-3">
+            <div class="input-group mb-3">
+              <label class="input-group-text" for="newDataset">Upload</label>
+              <input type="file" class="form-control" (change)="onnewDatasetFileSelected($event)" id="newDataset">
+            </div>
+          </div>
+        </div>
+        <div class="form-section mb-3">
+          <div class="row mb-3">
+            <div class="form-group col-md-1">
+              <div class="input-group">
+                <span class="input-group-text" id="newDatasetindex-addon">Index name</span>
+                <input [(ngModel)]="this.newIndexName" name="newDatasetindex" type="string"
+                       class="form-control"
+                       id="newDatasetindex">
+              </div>
+            </div>
+
+            <div class="form-group col-md-1">
+              <div class="input-group">
+                <span class="input-group-text" id="newlabel-addon">Label name</span>
+                <input [(ngModel)]="this.newLabelName" name="newlabel" type="string"
+                       class="form-control"
+                       id="newlabel">
+              </div>
+            </div>
+
+
+            <div class="form-group col-md-1">
+              <div class="input-group">
+                <span class="input-group-text" id="newsensitive-addon">Protected attribute name</span>
+                <input [(ngModel)]="this.newSensitiveName" name="newsensitive" type="string"
+                       class="form-control" id="newsensitive" placeholder="" aria-describedby="sensitive-addon">
+              </div>
+            </div>
+
+            <div class="form-group col-md-1">
+              <div class="input-group">
+                <span class="input-group-text" id="newfavored-addon">Favored attribute name</span>
+                <input [(ngModel)]="this.newFavoredName" name="newfavored" type="string"
+                       class="form-control"
+                       id="newfavored" placeholder="" aria-describedby="favored-addon">
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="form-section mb-3">
+          <div class="row mb-3">
+            <button class="btn btn-primary btn-lg" (click)="uploadDataset()"> Submit</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

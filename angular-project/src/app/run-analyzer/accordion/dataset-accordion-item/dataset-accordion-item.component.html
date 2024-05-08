@@ -1,0 +1,156 @@
+<div class="row" [ngStyle]="{ 'cursor': loading ? 'wait' : 'default' }">
+  <!-- Graphenkomponente -->
+  <div class="col-md-6 d-flex flex-column h-100">
+    <label for="runId"></label>
+    <!-- Which run do we want to display -->
+    <label for="runId"> Run </label>
+    <select id="runId" class="form-control form-control-sm mb-3" [(ngModel)]="shownRun" (change)="createDataSetChart()">
+      <option *ngFor="let run of allRuns; let i = index" [ngValue]="run">{{run}}</option>
+    </select>
+    <!-- Which model do we want to display -->
+    <label for="modelName"> Model </label>
+    <select id="modelName" class="form-control form-control-sm mb-3" [(ngModel)]="showModel"
+            (change)="createDataSetChart()">
+      <option *ngFor="let model of modelNames[shownRun]; let i = index" [ngValue]="model">{{model}}</option>
+    </select>
+
+    <!-- Which Display Option do we want to use  -->
+    <div class="form-group">
+      <label for="exampleFormControlSelect1"> Visualization option </label>
+      <select [(ngModel)]="selectedOption" (ngModelChange)="setDataSetDataPoints()" class="form-control"
+              id="exampleFormControlSelect1">
+        <option>Cluster and Predicted Label</option>
+        <option>Cluster and Actual Label</option>
+        <option>Cluster</option>
+        <option>Predicted Label</option>
+        <option>Actual Label</option>
+        <option>Sensitive</option>
+        <option>Sensitive and Cluster</option>
+        <option>Sensitive and Predicted Label</option>
+        <option>Sensitive and Actual Label</option>
+        <option>Correct</option>
+        <option>Correct and Sensitive</option>
+        <option>Correct and Cluster</option>
+      </select>
+    </div>
+
+
+    <div class="mb-3"></div>
+    <div class="chart-container" style="display: flex; flex-direction: column; align-items: center;">
+      <div class="chart-legend" style="display: flex; align-items: center;">
+        <div class="legend-item" *ngIf="formMeaning['rect'] !== 'None'">
+          <div class="shape rectangle"></div>
+          <span>{{formMeaning['rect']}}</span>
+        </div>
+        <div class="legend-item" *ngIf="formMeaning['circle'] !== 'None'">
+          <div class="shape circle"></div>
+          <span>{{formMeaning['circle']}}</span>
+        </div>
+        <div class="legend-item" *ngIf="formMeaning['star'] !== 'None'">
+          <svg class="shape star" viewBox="0 0 1024 1024" width="16" height="16" fill="#000">
+            <polygon
+              points="512 0 627 354 999 354 685 572 800 926 512 708 224 926 339 572 25 354 372 354 512 0"></polygon>
+          </svg>
+          <span>{{formMeaning['star']}}</span>
+        </div>
+        <div class="legend-item" *ngIf="formMeaning['tri'] !== 'None'">
+          <div class="shape triangle"></div>
+          <span>{{formMeaning['tri']}}</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <button class="btn btn-outline-info" type="button"
+                style="float: right; width: 45px" (click)="downloadCSV()">
+          <i class="bi bi-cloud-download"></i>
+        </button>
+        <button id="export-screenshot" class="btn btn-outline-info" type="button"
+                style="float: right; width: 45px; margin-right: 7px"
+                (click)="takeScreenshot()">
+          <i class="bi bi-camera"></i>
+        </button>
+        <div id="chart-screenshot">
+          <canvas id="dataset-chart"></canvas>
+        </div>
+        <div class="chart-controls mt-3">
+          <div class="text-center">
+            <div class="row">
+              <div class="col-3">
+                <label for="xAxisInput">X axis</label>
+                <select id="xAxisInput" class="form-control form-control-sm" [(ngModel)]="xAttribute">
+                  <option *ngFor="let attribute of attributes; let i = index">{{attribute}}</option>
+                </select>
+              </div>
+              <div class="col-3">
+                <label for="yAxisInput">Y axis</label>
+                <select id="yAxisInput" class="form-control form-control-sm" [(ngModel)]="yAttribute">
+                  <option *ngFor="let attribute of attributes; let i = index">{{attribute}}</option>
+                </select>
+              </div>
+              <div class="col-3 mt-4">
+                <button class="btn btn-outline-dark btn-sm" (click)="resetZoomDataSetChart()">Reset zoom</button>
+              </div>
+              <div class="col-3 mt-4">
+                <button class="btn btn-outline-dark btn-sm" (click)="setDataSetDataPoints()">Update Config</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Tabelle -->
+  <div class="col-md-6 d-flex flex-column h-100" *ngIf="attributeKeys.length > 0">
+    <div class="mt-10">
+      <div class="table-responsive mt-3" style="max-height: 800px; overflow-y: auto;">
+        <table class="table table-bordered">
+          <thead>
+          <tr class="sticky-header text-center">
+            <th>attribute</th>
+            <th class="column-header">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="button-container">
+                  <input type="radio" class="btn-check" name="options" id="predictPoint1" autocomplete="off"
+                         (click)="startPrediction(1)">
+                  <label class="btn btn-secondary btn-block" for="predictPoint1">Start Prediction</label>
+                  <input type="radio" class="btn-check" name="options" id="counterfactual" autocomplete="off"
+                         (click)="getCounterfactual()">
+                  <label class="btn btn-secondary btn-block" for="counterfactual">Counterfactual</label>
+                </div>
+              </div>
+            </th>
+            <!--            <th class="column-header">-->
+            <!--              Proxy mitigation-->
+            <!--            </th>-->
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let key of attributeKeys">
+            <td class="table-cell text-center">{{ key }}</td>
+            <td class="table-cell text-center">
+              <input type="number" class="form-control" [(ngModel)]="valuesPoint1[key]" style="text-align: center;">
+            </td>
+            <!--            <td class="table-cell text-center">-->
+            <!--              <input type="number" class="form-control" [(ngModel)]="valuesPoint2[key]">-->
+            <!--            </td>-->
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <table class="table" *ngIf="Object.keys(predictionRunResults).length > 0">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col"> Model Name</th>
+      <th scope="col"> Prediction</th>
+    </tr>
+    </thead>
+    <tbody >
+      <tr *ngFor="let runName of runKeys">
+        <td>{{runName}}</td>
+        <td>{{predictionRunResults[runName]}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,70 @@
+<div class="col-md-8 d-flex flex-column h-100">
+  <div class="chart-container">
+    <button class="btn btn-outline-info" type="button"
+            style="float: right; width: 45px" (click)="downloadCSV()">
+      <i class="bi bi-cloud-download"></i>
+    </button>
+    <button id="export-screenshot" class="btn btn-outline-info" type="button"
+            style="float: right; width: 45px; margin-right: 7px"
+            (click)="takeScreenshot()">
+      <i class="bi bi-camera"></i>
+    </button>
+    <div id="take-screenshot">
+      <canvas id="analyzer-boxplot-chart"></canvas>
+    </div>
+    <div class="chart-controls">
+      <div class="text-center">
+        <div class="row">
+          <div class="col-3">
+            <label for="xAxisInputAnalyzer">Metric</label>
+            <select id="xAxisInputAnalyzer" class="form-control form-control-sm" [(ngModel)]="metric">
+              <option *ngFor="let metric of metrics; let i = index">{{metric}}</option>
+            </select>
+          </div>
+          <div class="col-3 mt-3">
+            <button class="btn btn-outline-primary btn-sm" (click)="openMetricCreaterModal()">Create Metric</button>
+          </div>
+          <div class="col-3 mt-3">
+            <button class="btn btn-outline-primary btn-sm" (click)="setMetricDataPoints()">Update Config</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" id="metricCreaterModalBox">
+  <div class="modal-dialog" style="max-width: 80%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Metric Combiner</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" (click)="closeMetricCombinerModel()"></button>
+      </div>
+      <div class="modal-body">
+
+        <form>
+          <div *ngFor="let metric of combinedMetric; let i = index" class="d-flex flex-row align-items-center mb-2">
+            <div class="flex-grow-1 me-2">
+              <select class="form-control form-control-sm" [(ngModel)]="combinedMetric[i]" [name]="'metric-' + i">
+                <option *ngFor="let metric of metrics; let i = index">{{metric}}</option>
+              </select>
+            </div>
+            <div class="flex-grow-1 me-2">
+              <input [(ngModel)]="weights[i]" [name]="'name-' + i" class="form-control" placeholder="Weight">
+            </div>
+            <button type="button" class="btn btn-success me-2" (click)="addMetric()">Add</button>
+            <button type="button" class="btn btn-danger" (click)="removeMetric(i)">Remove</button>
+          </div>
+
+          <div class="d-flex flex-row align-items-center">
+            <div class="flex-grow-1 me-2">
+              <input [(ngModel)]="metricName" name="metricName" class="form-control" placeholder="Name">
+            </div>
+            <button type="button" class="btn btn-primary" (click)="addNewMetric()">Submit</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
