@@ -54,9 +54,6 @@ Open the application : http://localhost:4200/
 ## Adding Datasets
 
 - Can be done through the app (dataset has to be numerical).<br />
-- You need to restart the app after inserting a dataset.<br />
-- Some plots (on new datasets) might require tests on multiple metrics (for the relation scatterplots).<br />
-- Uploading datasets might not work on every OS (the respective function might have to be adapted).<br /> 
 
 
 ## Add Fair Classifier
