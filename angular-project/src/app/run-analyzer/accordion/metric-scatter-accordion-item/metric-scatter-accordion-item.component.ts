@@ -69,8 +69,7 @@ export class MetricScatterAccordionItemComponent implements OnInit, OnChanges {
   showAvg: boolean = false;
   showSubModels: boolean = false;
 
-  // Todo more forms
-  pointStyle: string[] = ["circle", "triangle", "rect", "cross"]
+  pointStyle: string[] = ["circle", "triangle", "rect", "cross", "star", "line", "rectRounded"]
 
 
   ngOnInit() {
@@ -150,13 +149,13 @@ export class MetricScatterAccordionItemComponent implements OnInit, OnChanges {
         models[model_name].push({
           x: this.totalMetricData[dataIndex][this.shownRun][model][this.xMetric],
           y: this.totalMetricData[dataIndex][this.shownRun][model][this.yMetric],
-          label: model
+          label: this.shownRun
         })
       } else {
         models[model_name] = [{
           x: this.totalMetricData[dataIndex][this.shownRun][model][this.xMetric],
           y: this.totalMetricData[dataIndex][this.shownRun][model][this.yMetric],
-          label: model
+          label: this.shownRun
         }]
       }
     }
@@ -196,7 +195,7 @@ export class MetricScatterAccordionItemComponent implements OnInit, OnChanges {
           models[model_name].push({
             x: this.totalMetricData[dataIndex][run][model][this.xMetric],
             y: this.totalMetricData[dataIndex][run][model][this.yMetric],
-            label: run + " - " + model
+            label: run
           })
           formOfModels[model_name].push(this.pointStyle[formIndex])
 
@@ -204,15 +203,12 @@ export class MetricScatterAccordionItemComponent implements OnInit, OnChanges {
           models[model_name] = [{
             x: this.totalMetricData[dataIndex][run][model][this.xMetric],
             y: this.totalMetricData[dataIndex][run][model][this.yMetric],
-            label: run + " - " + model
+            label: run
           }]
           formOfModels[model_name] = [this.pointStyle[formIndex]]
         }
       }
-      formIndex++;
-      if(formIndex > this.pointStyle.length){
-        formIndex == 0;
-      }
+      formIndex = (formIndex + 1) % this.pointStyle.length;
     }
     let datasets = []
     let index = 0
@@ -495,10 +491,12 @@ export class MetricScatterAccordionItemComponent implements OnInit, OnChanges {
       circle: 'shape-circle',
       triangle: 'shape-triangle',
       rect: 'shape-rect',
-      cross: 'shape-cross'
-      // Ergänze weitere Formen hier
+      cross: 'shape-cross',
+      star: 'shape-star',
+      line: 'shape-line',
+      rectRounded: 'shape-rectRounded'
     };
-    return shapeClasses[form] || 'shape-rect'; // Standardform
+    return shapeClasses[form] || 'shape-rect';
   }
 
 }
