@@ -316,6 +316,12 @@ export class MetricScatterAccordionItemComponent implements OnInit, OnChanges {
                 enabled: true
               },
               mode: 'xy',
+              drag:{
+                enabled: true,
+                borderColor: 'rgba(225,225,225,0.3)',
+                borderWidth: 1,
+                backgroundColor: 'rgba(225,225,225,0.3)'
+              }
             }
           },
           zoomActions: {
