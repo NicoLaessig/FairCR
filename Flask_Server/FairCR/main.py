@@ -264,7 +264,7 @@ except:
     time_df = pd.DataFrame()
     #mem_df = pd.DataFrame()
     run_count = 0
-
+model_to_clf = {}
 for model in model_list:
     start = time.time()
     try:
@@ -372,6 +372,10 @@ for model in model_list:
 
                 sol = True
 
+                # store the clf in a dictionary
+                clf_copy = copy.deepcopy(clf)
+                model_to_clf[model] = clf_copy
+
             except Exception as e:
                 print("------------------")
                 pred = None
@@ -471,5 +475,12 @@ my_shelf = shelve.open(filename)
 my_shelf["x_test"] = X_test2
 my_shelf["y_test"] = y_test2
 my_shelf["kmeans"] = kmeans
-# my_shelf["clf"] = clf
+# Also shelve every clf if possible
+for model in model_to_clf:
+    try:
+        my_shelf[model] = model_to_clf[model]
+    except Exception as e:
+        print(f"Failed to shelve 'clf': {e}")
+        my_shelf["model"] = None
+
 my_shelf.close()
