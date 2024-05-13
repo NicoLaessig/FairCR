@@ -510,141 +510,106 @@
   <div class="modal-dialog" style="max-width: 80%;">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title"> Information Text </h5>
+        <h5 class="modal-title"> Parameter Explanation </h5>
         <button type="button" class="btn-close" data-dismiss="modal" (click)="closeInformationModalInput()"></button>
       </div>
       <div class="modal-body">
-        <p>
-          The following table shows all parameters and their meaning
-        </p>
-        <table class="table">
-          <thead>
-          <tr>
-            <th scope="col">Parameter</th>
-            <th scope="col">Meaning</th>
-            <th scope="col">Domain</th>
-            <th scope="col">Special features</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>Dataset</td>
-            <td>Name of the dataset</td>
-            <td>Communities, ...</td>
-            <td> -</td>
-          </tr>
-          <tr>
-            <td>Index</td>
-            <td>Column name of the index</td>
-            <td>String</td>
-            <td> -</td>
-          </tr>
-          <tr>
-            <td>Label</td>
-            <td>Column name of the label</td>
-            <td>String</td>
-            <td>-</td>
-          </tr>
-          <tr>
-            <td>Testsize</td>
-            <td>Percentage of the test data of the total data</td>
-            <td>[0 : 1]</td>
-            <td>-</td>
-          </tr>
-          <tr>
-            <td>Predsize</td>
-            <td>Percentage of the prediction data of the total data</td>
-            <td>string</td>
-            <td>-</td>
-          </tr>
-          <tr>
-            <td>Randomstate</td>
-            <td>Seed for random generator</td>
-            <td>&#8469; &gt; 0 &#8746; &#123;-1&#125;</td>
-            <td>-1 will generate a random number</td>
-          </tr>
-          <tr>
-            <td>Sensitive</td>
-            <td>Indicates the protected attributes</td>
-            <td>List of column names</td>
-            <td>-</td>
-          </tr>
-          <tr>
-            <td>favored</td>
-            <td>Indicates the favored value for each protected attribute</td>
-            <td>List of favored values</td>
-            <td>Lenghts of sensitive and favored have to match</td>
-          </tr>
-          <tr>
-            <td>Ignore Sensitive</td>
-            <td>Option to ignore the sensitive attributes when training the classifier</td>
-            <td>Boolean</td>
-            <td>- Todo Nico Fragen</td>
-          </tr>
-          <tr>
-            <td>Proxy</td>
-            <td>Name of the proxy discrimination mitigation technique that should be applied</td>
-            <td>&#123; reweigh, remove, no&#125;</td>
-            <td>-</td>
-          </tr>
-          <tr>
-            <td>Allowed</td>
-            <td>The attributes that should be ignored when applying the proxy discrimination mitigation strategy</td>
-            <td>List of column names</td>
-            <td>-</td>
-          </tr>
-          <tr>
-            <td>Training Alg</td>
-            <td>Name of the training strategy that sould be used</td>
-            <td>&#123; adaboost, opt_adaboost, opt_random_forest, single_classifiers, fair &#125;</td>
-            <td>The fair strategy uses already fair classifiers(FAX, SMOTE, LFR) as input</td>
-          </tr>
-          <tr>
-            <td>Modelsize</td>
-            <td> Number of trained submodels</td>
-            <td> Number</td>
-            <td>-</td>
-          </tr>
-          <tr>
-            <td>Sbt</td>
-            <td>Option to train the classifiers seperately on each protected group</td>
-            <td>Boolean</td>
-            <td>Sbt has to be false for the fair training strategy</td>
-          </tr>
-          <tr>
-            <td>Cluster Alg</td>
-            <td> Algorithm used to predict the amount of clusters</td>
-            <td> &#123; LOGmeans, elbow &#125;</td>
-            <td>-</td>
-          </tr>
-          <tr>
-            <td>Ccr-min and Ccr-max</td>
-            <td> Ccr-min indicates the minimum and Ccr-max the maximum number of clusters generated</td>
-            <td> Number</td>
-            <td> Ccr-min = Ccr-max will skip the Clustersize estimation algorithm, Ccr-min = Cc3-max = -1 indicated that
-              the amount of cluster is choosen automatically
-            </td>
-          </tr>
-          <tr>
-            <td>Metric</td>
-            <td> Group fairness metric which is used in the loss function</td>
-            <td> &#123; demographic_parity, equalized_odds, equal_opportunity, treatment_equality &#125;</td>
-            <td>-</td>
-          </tr>
-          <tr>
-            <td>Weight</td>
-            <td> Weight for the loss function</td>
-            <td> [0 : 1]</td>
-            <td> 0 will only consider fairness, 1 will only consider accuracy</td>
-          </tr>
-          <tr>
-            <td>Name</td>
-            <td> How the Run will be called in the evaluation graphs</td>
-            <td> String</td>
-            <td> Choose Names that make sense for your configuration, dont choose the same name twice !</td>
-          </tr>
-          </tbody>
-        </table>
+        <div class="container mt-4">
+          <table class="table table-bordered">
+            <thead class="table-dark-grey">
+            <tr>
+              <th style="background-color: darkgray;" colspan="2">Datasets</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>Dataset</td>
+              <td>Dataset selected for analysis.</td>
+            </tr>
+            <tr>
+              <td>Index Name</td>
+              <td>Name of the index column in the dataset.</td>
+            </tr>
+            <tr>
+              <td>Label Name</td>
+              <td>Name of the target variable column in the dataset.</td>
+            </tr>
+            <tr>
+              <td>Protected Attribute Name</td>
+              <td>Column names of the attributes for which fairness needs to be ensured.</td>
+            </tr>
+            <tr>
+              <td>Favored Attribute Name</td>
+              <td>Which values of the protected attributes are considered favorable.</td>
+            </tr>
+            </tbody>
+            <thead class="table-dark-grey">
+            <tr>
+              <th style="background-color: darkgray;" colspan="2">Algorithms</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>Model</td>
+              <td>Fair classification algorithm</td>
+            </tr>
+            </tbody>
+            <thead class="table-dark-grey">
+            <tr>
+              <th style="background-color: darkgray;" colspan="2">Metrics</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>Fairness Metric</td>
+              <td>The metric used to evaluate the fairness of the algorithm. </td>
+            </tr>
+            <tr>
+              <td>Weight of the Fairness Term</td>
+              <td>Weight given to the fairness(in contrast to accuracy) in the model evaluation.</td>
+            </tr>
+            <tr>
+              <td>Weight of Local Fairness</td>
+              <td>Weight given to the local fairness(in contrast to global fairness) in the model evaluation.</td>
+            </tr>
+            </tbody>
+            <thead class="table-dark-grey">
+            <tr>
+              <th style="background-color: darkgray;" colspan="2">Preferences</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>Importance of Runtime</td>
+              <td>Indicates how much runtime efficiency is prioritized for the recommendations.</td>
+            </tr>
+            <tr>
+              <td>Maximum Usage of Available Memory</td>
+              <td>Limits the amount of memory the algorithm is allowed to use (only relevant for the recommendations).</td>
+            </tr>
+            <tr>
+              <td>Test Split Size</td>
+              <td>Proportion of the dataset reserved for testing the model’s performance.</td>
+            </tr>
+            <tr>
+              <td>Number of Iterations</td>
+              <td>Howmany times the selected models get trained and evaluated
+              </td>
+            </tr>
+            <tr>
+              <td>Tune Hyperparameters?</td>
+              <td>Indicates whether hyperparameters of the algorithm should be automatically adjusted for optimal
+                performance.
+              </td>
+            </tr>
+            <tr>
+              <td>Name</td>
+              <td>Name assigned to the current run or set of configurations for easy identification.</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
       </div>
     </div>
   </div>
