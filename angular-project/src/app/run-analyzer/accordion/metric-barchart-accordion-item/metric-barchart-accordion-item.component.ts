@@ -272,37 +272,47 @@ export class MetricBarchartAccordionItemComponent implements OnInit, OnChanges {
   }
 
   downloadCSVRuns() {
-    let csvString = "runName"
-    csvString = csvString + ", " + this.metric1
-    csvString = csvString + ", " + this.metric2
-    csvString = csvString + ", " + this.metric3
-    csvString = csvString + "\n"
-    for (const runName in this.totalMetricData[0]) {
-      for (const modelName in this.totalMetricData[0][runName]) {
-        if (modelName.startsWith("FALCC")) {
-          csvString = csvString + runName
-          csvString = csvString + ", " + this.totalMetricData[0][runName][modelName][this.metric1]
-          csvString = csvString + ", " + this.totalMetricData[0][runName][modelName][this.metric2]
-          csvString = csvString + ", " + this.totalMetricData[0][runName][modelName][this.metric3]
-          csvString = csvString + "\n"
-        }
-      }
-    }
-    const blob = new Blob([csvString], {type: 'text/csv;charset=utf-8;'});
-    this.startDownload("AverageResults", URL.createObjectURL(blob));
-  }
-
-  downloadCSVSubmodels() {
-    if (this.shownRun) {
-      let csvString = "model, " + this.metric + "\n"
-      for (const modelName in this.totalMetricData[0][this.shownRun]) {
-        csvString = csvString + modelName + ", " + this.totalMetricData[0][this.shownRun][modelName][this.metric]
-        csvString = csvString + "\n"
+    if(this.shownRun){
+      let csvString = "model"
+      csvString = csvString + ", " + this.metric1
+      csvString = csvString + ", " + this.metric2
+      csvString = csvString + ", " + this.metric3
+      csvString = csvString + "\n"
+      for(const modelName in this.totalMetricData[0][this.shownRun]){
+         csvString = csvString + modelName
+         csvString = csvString + ", " + this.totalMetricData[0][this.shownRun][modelName][this.metric1]
+         csvString = csvString + ", " + this.totalMetricData[0][this.shownRun][modelName][this.metric2]
+         csvString = csvString + ", " + this.totalMetricData[0][this.shownRun][modelName][this.metric3]
+         csvString = csvString + "\n"
       }
       const blob = new Blob([csvString], {type: 'text/csv;charset=utf-8;'});
-      this.startDownload("AverageResults", URL.createObjectURL(blob));
+      this.startDownload(this.shownRun + "_"+ this.metric1 + "_"+ this.metric2 + "_"+ this.metric3, URL.createObjectURL(blob));
     }
+  }
 
+  downloadCSVModels() {
+    if (this.shownModel) {
+      let csvString = "run"
+      csvString = csvString + ", " + this.metric1
+      csvString = csvString + ", " + this.metric2
+      csvString = csvString + ", " + this.metric3
+      csvString = csvString + "\n"
+
+      // iterate over every run and check if this run has the specific model
+      for(const runName in this.totalMetricData[0]){
+        for(const modelName in this.totalMetricData[0][runName]){
+          if(modelName == this.shownModel){
+            csvString = csvString + runName
+            csvString = csvString + ", " + this.totalMetricData[0][runName][this.shownModel][this.metric1]
+            csvString = csvString + ", " + this.totalMetricData[0][runName][this.shownModel][this.metric2]
+            csvString = csvString + ", " + this.totalMetricData[0][runName][this.shownModel][this.metric3]
+            csvString = csvString + "\n"
+          }
+        }
+      }
+      const blob = new Blob([csvString], {type: 'text/csv;charset=utf-8;'});
+      this.startDownload(this.shownModel + "_"+ this.metric1 + "_"+ this.metric2 + "_"+ this.metric3, URL.createObjectURL(blob));
+    }
   }
 
 

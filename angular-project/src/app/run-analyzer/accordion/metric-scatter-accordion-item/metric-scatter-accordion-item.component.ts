@@ -465,16 +465,37 @@ export class MetricScatterAccordionItemComponent implements OnInit, OnChanges {
     csvString = csvString + ", " + this.xMetric
     csvString = csvString + ", " + this.yMetric
     csvString = csvString + "\n"
-    for (const runName in this.totalMetricData[0]) {
-      for (const modelName in this.totalMetricData[0][runName]) {
-        csvString = csvString + runName + ", " + modelName
-        csvString = csvString + ", " + this.totalMetricData[0][runName][modelName][this.xMetric]
-        csvString = csvString + ", " + this.totalMetricData[0][runName][modelName][this.yMetric]
-        csvString = csvString + "\n"
+    if(this.myChart?.data){
+      for(let key in this.myChart.data.datasets){
+       let runName
+        let modelName
+        if(this.displayType == "both" || this.displayType == "run"){
+         modelName = this.myChart.data.datasets[key].label
+         }
+        else{
+          runName = this.myChart.data.datasets[key].label
+        }
+        for(let pointKey in this.myChart.data.datasets[key].data){
+          let point = this.myChart.data.datasets[key].data[pointKey]
+          if(this.displayType == "both" || this.displayType =="run"){
+            // @ts-ignore
+            runName = point.label
+          }
+          else{
+            // @ts-ignore
+            modelName = point.label
+          }
+          csvString = csvString + runName + ", " + modelName
+          // @ts-ignore
+          csvString = csvString + ", " + point.x
+          // @ts-ignore
+          csvString = csvString + ", " + point.y
+          csvString = csvString + "\n"
+        }
       }
+      const blob = new Blob([csvString], {type: 'text/csv;charset=utf-8;'});
+      this.startDownload(this.xMetric + "_"+ this.yMetric, URL.createObjectURL(blob));
     }
-    const blob = new Blob([csvString], {type: 'text/csv;charset=utf-8;'});
-    this.startDownload("AverageResults", URL.createObjectURL(blob));
   }
 
   // @ts-ignore

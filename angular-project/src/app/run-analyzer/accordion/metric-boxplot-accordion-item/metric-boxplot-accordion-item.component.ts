@@ -291,18 +291,28 @@ export class MetricBoxplotAccordionItemComponent implements OnInit, OnChanges {
   }
 
   downloadCSV() {
-    console.log(this.myChart)
-    let csvString = "model , min, 1.quantile, median, mean, 2.quantile, max \n"
-    for (let model of this.runNames) {
-      let data = []
-      for (const modelName in this.totalMetricData[1][model]) {
-        data.push(this.totalMetricData[1][model][modelName][this.metric])
+    if(this.myChart){
+      let csvString = "run, model , min, 1.quantile, median, mean, 2.quantile, max \n"
+      let models = this.myChart.config.data.labels
+      let datasets = this.myChart.config.data.datasets
+      if(models && datasets){
+        for(let dataset_key in datasets){
+          let dataset = datasets[dataset_key].data
+          let run = datasets[dataset_key].label
+          for (let data_key in dataset){
+            let data = dataset[data_key]
+            let model = models[data_key]
+            console.log(data, model, run)
+            if(data) {
+              // @ts-ignore
+              csvString = csvString + run +", " + model + ", " + min(data) + ", " + calculateQ1(data) + ", " + calculateMedian(data) + ", " + calculateMean(data) + ", " + calculateQ3(data) + ", " + max(data) + "\n";
+            }
+          }
+        }
       }
-      csvString = csvString + model + ", " + min(data) + ", " + calculateQ1(data) + ", " + calculateMedian(data) + ", " + calculateMean(data) + ", " +
-        calculateQ3(data) + ", " + max(data) + "\n";
+      const blob = new Blob([csvString], {type: 'text/csv;charset=utf-8;'});
+      this.startDownload(this.metric + "_BoxPlot", URL.createObjectURL(blob));
     }
-    const blob = new Blob([csvString], {type: 'text/csv;charset=utf-8;'});
-    this.startDownload("BoxPlot", URL.createObjectURL(blob));
   }
 
   // @ts-ignore
