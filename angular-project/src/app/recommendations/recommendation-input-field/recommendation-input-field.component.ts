@@ -38,7 +38,17 @@ export class RecommendationInputFieldComponent {
     )
   }
 
-  showInformationModel() {
+    closeInformationModalInput() {
+        const modelDiv = document.getElementById("informationModalRecInput")
+        if (modelDiv != null) {
+            modelDiv.style.display = 'none';
+        }
+    }
 
-  }
+    showInformationModel() {
+        const modelDiv = document.getElementById("informationModalRecInput")
+        if (modelDiv != null) {
+            modelDiv.style.display = 'block';
+        }
+    }
 }

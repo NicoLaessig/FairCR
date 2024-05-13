@@ -128,7 +128,7 @@
             <th>score</th>
             <th>error_rate</th>
             <th>global bias</th>
-            <th>local bias</th> 
+            <th>local bias</th>
             <th>expected_memory_usage</th>
             <th>expected_runtime</th>
             <th>expected_runtime_normalized</th>
@@ -154,5 +154,73 @@
 </div>
 
 
+<!-- Information modal -->
+<div class="modal" id="informationModalRecInput">
+  <div class="modal-dialog" style="max-width: 80%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"> Parameter Explanation </h5>
+        <button type="button" class="btn-close" data-dismiss="modal" (click)="closeInformationModalInput()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container mt-4">
+          <table class="table table-bordered">
+            <thead class="table-dark-grey">
+            <tr>
+              <th style="background-color: darkgray; color: #333;" colspan="2">Datasets</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>Datasetsize</td>
+              <td>Expected size of the dataset you might want to train a model on</td>
+            </tr>
+            </tbody>
+            <thead class="table-dark-grey">
+            <tr>
+              <th style="background-color: darkgray; color: #333;" colspan="2">Metrics</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>Fairness Metric</td>
+              <td>The metric used to evaluate the fairness of the algorithm. </td>
+            </tr>
+            <tr>
+              <td>Weight of the Fairness Term</td>
+              <td>Weight given to the fairness(in contrast to accuracy) in the model evaluation.</td>
+            </tr>
+            <tr>
+              <td>Weight of Local Fairness</td>
+              <td>Weight given to the local fairness(in contrast to global fairness) in the model evaluation.</td>
+            </tr>
+            </tbody>
+            <thead class="table-dark-grey">
+            <tr>
+              <th style="background-color: darkgray; color: #333;" colspan="2">Preferences</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>Importance of Runtime</td>
+              <td>Indicates how much runtime efficiency is prioritized for the recommendations.</td>
+            </tr>
+            <tr>
+              <td>Maximum Usage of Available Memory</td>
+              <td>Limits the amount of memory the algorithm is allowed to use (only relevant for the recommendations).</td>
+            </tr>
+            <tr>
+              <td>Tune Hyperparameters?</td>
+              <td>Indicates whether hyperparameters of the algorithm should be automatically adjusted for optimal
+                performance.
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
 
+      </div>
+    </div>
+  </div>
+</div>
 
